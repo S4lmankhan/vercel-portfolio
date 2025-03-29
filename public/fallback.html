@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salman Khan - Portfolio</title>
+  <style>
+    /* Reset cursor for all elements */
+    * {
+      cursor: none !important;
+    }
+    
+    /* Navigation styles */
+    #absolute-navigation {
+      position: fixed !important;
+      bottom: 20px !important;
+      left: 0 !important;
+      right: 0 !important;
+      z-index: 999999 !important;
+      display: flex !important;
+      justify-content: center !important;
+      pointer-events: none !important;
+    }
+    
+    #absolute-navigation > div {
+      border-radius: 9999px !important;
+      padding: 8px 16px !important;
+      display: flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2) !important;
+      pointer-events: auto !important;
+      background-color: rgba(31, 41, 55, 0.9) !important;
+      backdrop-filter: blur(8px) !important;
+      border: 1px solid rgba(75, 85, 99, 0.5) !important;
+    }
+    
+    /* Cursor styles */
+    #global-cursor-dot {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 8px !important;
+      height: 8px !important;
+      background-color: #8b5cf6 !important;
+      border-radius: 50% !important;
+      pointer-events: none !important;
+      z-index: 999999 !important;
+      box-shadow: 0 0 10px 2px rgba(139, 92, 246, 0.5) !important;
+    }
+    
+    #global-cursor-ring {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 32px !important;
+      height: 32px !important;
+      border-radius: 50% !important;
+      pointer-events: none !important;
+      z-index: 999998 !important;
+      border: 2px solid #8b5cf6 !important;
+      transition: width 0.2s, height 0.2s, transform 0.1s !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- Fallback content -->
+  <div id="fallback-content">
+    <h1>Salman Khan Portfolio</h1>
+    <p>If you're seeing this page, please click the button below to go to the main site:</p>
+    <a href="/" style="display: inline-block; padding: 10px 20px; background-color: #8b5cf6; color: white; text-decoration: none; border-radius: 5px;">Go to Portfolio</a>
+  </div>
+
+  <!-- Script to ensure navigation and cursor are always visible -->
+  <script>
+    // Function to ensure elements are visible
+    function ensureElements() {
+      // Check for navigation
+      if (!document.getElementById('absolute-navigation')) {
+        const navContainer = document.createElement('div');
+        navContainer.id = 'absolute-navigation';
+        
+        const innerContainer = document.createElement('div');
+        
+        // Add a simple home link as fallback
+        const homeLink = document.createElement('a');
+        homeLink.href = '/';
+        homeLink.style.display = 'block';
+        homeLink.style.textDecoration = 'none';
+        
+        const homeIcon = document.createElement('div');
+        homeIcon.style.padding = '8px';
+        homeIcon.style.borderRadius = '9999px';
+        homeIcon.style.color = '#a78bfa';
+        homeIcon.style.backgroundColor = 'rgba(55, 65, 81, 0.8)';
+        homeIcon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>';
+        
+        homeLink.appendChild(homeIcon);
+        innerContainer.appendChild(homeLink);
+        
+        // Add hire me button
+        const hireLink = document.createElement('a');
+        hireLink.href = '/hire-me';
+        hireLink.style.display = 'block';
+        hireLink.style.textDecoration = 'none';
+        hireLink.style.marginLeft = '8px';
+        
+        const hireButton = document.createElement('div');
+        hireButton.style.padding = '6px 16px';
+        hireButton.style.borderRadius = '9999px';
+        hireButton.style.backgroundColor = '#8b5cf6';
+        hireButton.style.color = 'white';
+        hireButton.style.display = 'flex';
+        hireButton.style.alignItems = 'center';
+        hireButton.style.fontSize = '0.875rem';
+        hireButton.style.fontWeight = '500';
+        hireButton.innerHTML = 'Hire Me';
+        
+        hireLink.appendChild(hireButton);
+        innerContainer.appendChild(hireLink);
+        
+        navContainer.appendChild(innerContainer);
+        document.body.appendChild(navContainer);
+      }
+      
+      // Check for cursor elements
+      if (!document.getElementById('global-cursor-dot')) {
+        const dot = document.createElement('div');
+        dot.id = 'global-cursor-dot';
+        document.body.appendChild(dot);
+      }
+      
+      if (!document.getElementById('global-cursor-ring')) {
+        const ring = document.createElement('div');
+        ring.id = 'global-cursor-ring';
+        document.body.appendChild(ring);
+      }
+    }
+    
+    // Update cursor position on mousemove
+    document.addEventListener('mousemove', function(e) {
+      const dot = document.getElementById('global-cursor-dot');
+      const ring = document.getElementById('global-cursor-ring');
+      
+      if (dot) {
+        dot.style.transform = 'translate(' + (e.clientX - 4) + 'px, ' + (e.clientY - 4) + 'px)';
+      }
+      
+      if (ring) {
+        ring.style.transform = 'translate(' + (e.clientX - 16) + 'px, ' + (e.clientY - 16) + 'px)';
+      }
+    });
+    
+    // Run immediately and set interval
+    ensureElements();
+    setInterval(ensureElements, 200);
+    
+    // Also run on various events
+    window.addEventListener('load', ensureElements);
+    window.addEventListener('DOMContentLoaded', ensureElements);
+    document.addEventListener('scroll', ensureElements);
+    document.addEventListener('click', ensureElements);
+  </script>
+</body>
+</html>
+

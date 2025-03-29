@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Salman Khan - Portfolio</title>
+  <style>
+    /* Ensure navigation and cursor are always visible */
+    #fixed-navigation {
+      position: fixed !important;
+      bottom: 20px !important;
+      left: 0 !important;
+      right: 0 !important;
+      z-index: 9999 !important;
+      display: flex !important;
+      justify-content: center !important;
+      pointer-events: none !important;
+    }
+    
+    #fixed-navigation > div {
+      pointer-events: auto !important;
+    }
+    
+    #cursor-dot {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 8px !important;
+      height: 8px !important;
+      background-color: #8b5cf6 !important;
+      border-radius: 50% !important;
+      pointer-events: none !important;
+      z-index: 99999 !important;
+      box-shadow: 0 0 10px 2px rgba(139, 92, 246, 0.5) !important;
+    }
+    
+    #cursor-ring {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 32px !important;
+      height: 32px !important;
+      border-radius: 50% !important;
+      pointer-events: none !important;
+      z-index: 99998 !important;
+      border: 2px solid #8b5cf6 !important;
+      transition: width 0.2s, height 0.2s, transform 0.1s !important;
+    }
+    
+    * {
+      cursor: none !important;
+    }
+  </style>
+</head>
+<body>
+  <!-- This file ensures navigation and cursor are always visible -->
+  <script>
+    // Function to ensure navigation and cursor are visible
+    function ensureElementsVisible() {
+      // Check for navigation
+      const nav = document.getElementById('fixed-navigation');
+      if (!nav) {
+        // Create a placeholder navigation if it doesn't exist
+        const placeholderNav = document.createElement('div');
+        placeholderNav.id = 'fixed-navigation';
+        placeholderNav.style.position = 'fixed';
+        placeholderNav.style.bottom = '20px';
+        placeholderNav.style.left = '0';
+        placeholderNav.style.right = '0';
+        placeholderNav.style.zIndex = '9999';
+        placeholderNav.style.display = 'flex';
+        placeholderNav.style.justifyContent = 'center';
+        placeholderNav.style.pointerEvents = 'none';
+        document.body.appendChild(placeholderNav);
+      }
+      
+      // Check for cursor elements
+      const cursorDot = document.getElementById('cursor-dot');
+      const cursorRing = document.getElementById('cursor-ring');
+      
+      if (!cursorDot) {
+        const dot = document.createElement('div');
+        dot.id = 'cursor-dot';
+        document.body.appendChild(dot);
+      }
+      
+      if (!cursorRing) {
+        const ring = document.createElement('div');
+        ring.id = 'cursor-ring';
+        document.body.appendChild(ring);
+      }
+    }
+    
+    // Run immediately and set interval
+    ensureElementsVisible();
+    setInterval(ensureElementsVisible, 500);
+    
+    // Also run on various events
+    window.addEventListener('load', ensureElementsVisible);
+    window.addEventListener('DOMContentLoaded', ensureElementsVisible);
+    document.addEventListener('scroll', ensureElementsVisible);
+    document.addEventListener('click', ensureElementsVisible);
+    document.addEventListener('mousemove', function(e) {
+      ensureElementsVisible();
+      
+      // Update cursor position
+      const cursorDot = document.getElementById('cursor-dot');
+      const cursorRing = document.getElementById('cursor-ring');
+      
+      if (cursorDot) {
+        cursorDot.style.transform = `translate(${e.clientX - 4}px, ${e.clientY - 4}px)`;
+      }
+      
+      if (cursorRing) {
+        cursorRing.style.transform = `translate(${e.clientX - 16}px, ${e.clientY - 16}px)`;
+      }
+    });
+  </script>
+</body>
+</html>
+
